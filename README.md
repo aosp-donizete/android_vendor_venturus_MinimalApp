@@ -7,12 +7,11 @@
 # Ambiente
 Voce pode clonar esse repositorio dentro de qualquer lugar na sua estrutura de arquivos do framework.  
 **frameworks/base/packages/**  
-**packages/apps**  
-__device/**/\**__  
+**packages/apps/**    
+__device/**/\**/__    
 
 Nada disso importa muito.  
-Eu optei por nomear o repositorio de acordo com a localizacao em que eu espero que ele seja clonado.  
-**vendor/venturus/MinimalApp**  
+Eu optei por nomear o repositorio de acordo com a localizacao em que eu espero que ele seja clonado: **vendor/venturus/MinimalApp**  
 Para tal, voce pode fazer algo como:
 ```
 git clone https://github.com/venturus-donizete/android_vendor_venturus_minimal_app.git vendor/venturus/MinimalApp
@@ -190,9 +189,9 @@ Nao sou um expert. Seja voce. Pesquise.
 > Ler: [KVM](https://www.linux-kvm.org/page/Main_Page)  
 
 Esse produto vem de alguma configuracao descrita na pasta:  
-**/device**  
+**device/\*\***  
 ou  
-**/build/target/product**  
+**build/target/product/\*\***  
 
 O framework Android nao e conhecido por ser bem documentado.  
 Uma grande baguncinha.  
