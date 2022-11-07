@@ -1,0 +1,9 @@
+android_app {
+    name: "MinimalApp",
+    srcs: ["**/*.kt"],
+    platform_apis: true,
+    certificate: "platform",
+    optimize: {
+        enabled: false,
+    },
+}
