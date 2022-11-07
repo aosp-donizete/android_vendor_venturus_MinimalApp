@@ -3,8 +3,29 @@
 
 ~~caso algo esteja errado, de alguma forma, nao seja um chato. abre o PR e a gente corrige~~
 
-# Android.bp
+# Cade o gradle?
+Se voce ja programou para Android, sabe, ou deveria saber, que para que um APK  
+seja gerado e feito uso do [gradle](https://gradle.org/).  
+Mas nao quer dizer que um APK nao possa ser gerado sem ele.  
+Em resumo, para que um APK seja compilado, assim como quaquer artefato de qualquer  
+framework especifico, e necessario algum tipo de SDK, compilador, ou qualquer coisa  
+que produza um binario que faca sentido quando carregado pela plataforma.  
+Para o Android nao e diferente.  
 
+## Um APK e como um JAR. (~~e as motos como os jetskys~~)  
+Sua unica diferenca e que ele possui arquivos, como fotos, XML etc.  
+De maneira breve, para compilar um APK e necessario compilar suas classes .java ou .kt  
+que vao gerar arquivos .class (bytecode). Esses devem ser transformados para arquivos .dex, para  
+rodar na maquina virtual do Android (ART).  
+A palavra *dex* significa algo como *dalvik executable*. Dalvik era a antiga VM do Android.  
+A ART abre esse arquivo *.dex* em tempo de instalacao e faz o cache deles para *.odex*, que otimiza  
+as intrucoes da VM para o device em especifico, tornando o tempo de instalacao demorado, mas o de  
+execucao rapido.  
+Os outros arquivos, conhecidos como recursos, devem ser compilados de alguma maneira e serem  
+encapsulados dentro desse APK.  
+Para isso e usado uma ferramenta chamada [aapt2](https://developer.android.com/studio/command-line/aapt2).
+
+# Android.bp
 No build system do Android os arquivos .bp descrevem  
 como um artefato deve ser construido e onde deve ser instalado.
 
@@ -16,7 +37,6 @@ padrao e nao podem ser capturadas nem via reflection:
 > Ler: [Non-SDK interfaces](https://developer.android.com/guide/app-compatibility/restrictions-non-sdk-interfaces)  
 
 # Nao bastando (como nada nessa vida basta)
-
 Descrever um bp nao faz magicamente que seu app seja instalado no seu produto de desejo.  
 Afinal existem varios produtos. Varias variantes.  
 Por tanto, atraves do nome do .bp podemos dizer **onde** queremos que ele seja instalado.  
