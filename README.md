@@ -18,6 +18,46 @@ Para tal, voce pode fazer algo como:
 git clone https://github.com/venturus-donizete/android_vendor_venturus_minimal_app.git vendor/venturus/MinimalApp
 ```
 
+## Ou ...
+Caso voce queira ir fazendo e ir vendo os erros acontecendo, crie a seguinte estrutura de pastas, a partir da raiz do projeto, claro:  
+
+~~voce pode fazer pela UI tambem. estou apenas sendo elegante aqui, como Sergio Prado~~
+<img src="fino.jpg" alt="fino senores">
+```
+mkdir -p vendor/venturus/MinimalApp
+```
+```
+cd vendor/venturus/MinimalApp
+```
+
+Crie o seguinte arquivo:
+```
+touch Android.bp
+```
+
+E edite:
+```
+nano Android.bp
+```
+
+E cole o seguinte conteudo:  
+```
+android_app {
+    name: "MinimalApp",
+    srcs: ["**/*.kt"],
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    optimize: {
+        enabled: false,
+    },
+}
+```
+
+CTRL+X pra sair e YES e enter.
+
+Feito isso, tudo estara certo para dar errado.  
+
 # Cade o gradle?
 Se voce ja programou para Android, sabe, ou deveria saber, que para que um APK seja gerado e feito uso do [gradle](https://gradle.org/).  
 Mas nao quer dizer que um APK nao possa ser gerado sem ele.  
@@ -34,9 +74,12 @@ Para isso e usado uma ferramenta chamada [aapt2](https://developer.android.com/s
 
 # Android.bp
 No build system do Android ([soong](https://android.googlesource.com/platform/build/soong/+/refs/heads/master/README.md))
-os arquivos de *blueprint*, que tem a extensao **.bp** descrevem como um artefato deve ser construido e onde deve ser instalado.  
+os arquivos de *blueprint*, que tem a extensao **.bp**, descrevem como um artefato deve ser construido e onde deve ser instalado.  
 Ele e auto explicativo.  
- - Cada modulo descrito dentro de um arquivo *.bp* deve ter um nome unico.
+
+Cada modulo descrito dentro de um arquivo *.bp* deve ter um nome unico.  
+~~nao sei como dividir isso em topicos, vai ficar assim mesmo~~  
+
  - Algumas configuracoes mais genericas do que compilar
  - Qual assinatura usar 
  - Se ele vai ter acesso as *platform_apis*, que sao escondidas do SDK padrao e nao podem ser capturadas nem via reflection.
@@ -62,7 +105,10 @@ Nos conseguimos criar um APK sem nenhum *bytecode* dentro dele.
 Mas o manifest e sagrado.  
 Para isso devemos criar um arquivo de manifest dentro do nosso modulo.
 
-Algo como:
+```
+touch AndroidManifest.xml
+```
+E cole algo como:
 
 ```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -78,12 +124,8 @@ O meu modulo se encontra assim:
 ```
 .
 ├── Android.bp
-├── AndroidManifest.xml
-├── baguncinha.jpg
-└── README.md
+└── AndroidManifest.xml
 ```
-
-~~seja sensato, voce nao precisa da imagem do baguncinha~~
 
 Depois disso voce conseguira compilar seu APK corretamente.
 
