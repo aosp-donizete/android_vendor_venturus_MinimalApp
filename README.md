@@ -3,24 +3,33 @@
 
 ~~caso algo esteja errado, de alguma forma, nao seja um chato. abre o PR e a gente corrige~~
 
+---
+# Ambiente
+Voce pode clonar esse repositorio dentro de qualquer lugar na sua estrutura de arquivos do framework.  
+**frameworks/base/packages/**  
+**packages/apps**  
+__device/**/\**__  
+
+Nada disso importa muito.  
+Eu optei por nomear o repositorio de acordo com a localizacao em que eu espero que ele seja clonado.  
+**vendor/venturus/MinimalApp**  
+Para tal, voce pode fazer algo como:
+```
+git clone https://github.com/venturus-donizete/android_vendor_venturus_minimal_app.git vendor/venturus/MinimalApp
+```
+
 # Cade o gradle?
-Se voce ja programou para Android, sabe, ou deveria saber, que para que um APK  
-seja gerado e feito uso do [gradle](https://gradle.org/).  
+Se voce ja programou para Android, sabe, ou deveria saber, que para que um APK seja gerado e feito uso do [gradle](https://gradle.org/).  
 Mas nao quer dizer que um APK nao possa ser gerado sem ele.  
-Em resumo, para que um APK seja compilado, assim como quaquer artefato de qualquer  
-framework especifico, e necessario algum tipo de SDK, compilador, ou qualquer coisa  
+Em resumo, para que um APK seja compilado, assim como quaquer artefato de qualquer framework especifico, e necessario algum tipo de SDK, compilador, ou qualquer coisa  
 que produza um binario que faca sentido quando carregado pela plataforma.  
 Para o Android nao e diferente.  
 
 ## Um APK e como um JAR. (~~e as motos como os jetskis~~)  
-Sua unica diferenca e que ele possui arquivos, como fotos, XML etc.  
-De maneira breve, para gerar um APK e necessario compilar suas classes .java ou .kt  
-que vao gerar arquivos .class (bytecode). Esses devem ser transformados para arquivos .dex, para  
-rodar na maquina virtual do Android (ART).  
+Sua unica diferenca e que ele possui arquivos, como fotos, XML, etc.  
+De maneira breve, para gerar um APK e necessario compilar suas classes .java ou .kt que vao gerar arquivos .class (bytecode). Esses devem ser transformados para arquivos .dex, para rodar na maquina virtual do Android (ART).  
 A palavra *dex* significa algo como *dalvik executable*. Dalvik era a antiga VM do Android.  
-A ART abre esse arquivo *.dex* em tempo de instalacao e faz o cache deles para *.odex*, que otimiza  
-as intrucoes da VM para o device em especifico, tornando o tempo de instalacao demorado, mas o de  
-execucao rapido.  
+A ART abre esse arquivo *.dex* em tempo de instalacao e faz o cache deles para *.odex*, que otimiza as intrucoes da VM para o device em especifico, tornando o tempo de instalacao demorado, mas o de execucao rapido.  
 Os outros arquivos, conhecidos como recursos, devem ser compilados de alguma maneira e serem  
 encapsulados dentro desse APK.  
 Para isso e usado uma ferramenta chamada [aapt2](https://developer.android.com/studio/command-line/aapt2).
@@ -42,7 +51,8 @@ E toda magica acontece.
 Como nosso modulo se chama "MinimalApp", basta digitar, depois de subir o ambiente do framework:
 **mm MinimalApp**  
 E provavel que voce obtenha algum erro relacionado ao arquivo **AndroidManifest.xml**.  
-Nos conseguimos criar um APK sem nenhum *bytecode* dentro dele. Mas o manifest e sagrado.  
+Nos conseguimos criar um APK sem nenhum *bytecode* dentro dele.  
+Mas o manifest e sagrado.  
 Para isso devemos criar um arquivo de manifest dentro do nosso modulo.
 
 Algo como:
@@ -125,9 +135,7 @@ Lunch menu... pick a combo:
      30. aosp_x86_64-eng
 ```
 
-Como eu quero compilar para que seja executado na minha maquina, a opcao 30  
-me foi mais adequada. Suponho que codigos x86_64 possam ser executados direto na KVM  
-sem a necessidade de uma traducao, diferente da arquitetura arm ou arm64, que precisam ser "traduzidas".  
+Como eu quero compilar para que seja executado na minha maquina, a opcao 30 me foi mais adequada.   Suponho que codigos x86_64 possam ser executados direto na KVM sem a necessidade de uma traducao, diferente da arquitetura arm ou arm64, que precisam ser "traduzidas".  
 Nao sou um expert. Seja voce. Pesquise.
 
 > Ler: [KVM](https://www.linux-kvm.org/page/Main_Page)  
@@ -231,7 +239,7 @@ Feito isso, voce pode apertar **m** e recompilar o emulador todo.
 Mas, porem, nao obstante, entretanto, ainda sim, nao sendo suficiente, vai dar erro.
 
 Dentro do Android temos varias possiveis particoes, cada uma tendo um significado.  
-Vai ler o manual e deixar o Sean orgulhoso: [Partitions](https://source.android.com/docs/core/architecture/bootloader/partitions), [product-interfaces](https://source.android.com/docs/core/architecture/bootloader/partitions/product-interfaces).  
+> Vai ler o manual e deixar o Sean orgulhoso: [Partitions](https://source.android.com/docs/core/architecture/bootloader/partitions), [product-interfaces](https://source.android.com/docs/core/architecture/bootloader/partitions/product-interfaces).  
 
 Qual delas devemos usar? Quem diz qual?  
 
@@ -257,7 +265,7 @@ Cada uma delas instala em uma particao especifica do device.
 E como eu sei todos esses comandos? Eu sou um dicionario de comandos do *blueprint*?  
 Nao
 
-Vai ler a documentacao:  
+> Vai ler a documentacao:  
 [soong_build.html](https://ci.android.com/builds/latest/branches/aosp-build-tools/targets/linux/view/soong_build.html)
 
 Nos vamos usar a particao **/system_ext**. Porque sim. E a que eu trabaho no dia a dia e a que eu suponho corrigir qualquer asneira.
@@ -307,13 +315,17 @@ Para reconstruir o emulador com seu novo artefato, basta digitar: **m**.
 
 Ao ligar novamente, o que vera de novo? Nada.
 
-**“Só se vê bem com o coração, o essencial é invisível aos olhos”**
+> **“Só se vê bem com o coração, o essencial é invisível aos olhos”**
+
+<br>
 
 O que criamos foi apenas uma casca.  
 
 O minimo. Sem codigo. Sem icone. O nada.
 
 Um coração escondido. Um homem de lata.
+
+<br>
 
 Para verificar que ele existe, basta digitar:  
 ```
@@ -332,6 +344,6 @@ ou
 codePath=/system_ext/priv-app/MinimalApp
 ```
 
-<div style="display: flex; justify-content: center;">
-    <img src="thatsall.gif" alt="![Thats all folks!](thatsall.gif)">
+<div style="display: flex;">
+    <img style="flex: 1;" src="thatsall.gif" alt="![Thats all folks!](thatsall.gif)">
 </div>
