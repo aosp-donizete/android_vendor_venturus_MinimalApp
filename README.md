@@ -21,8 +21,7 @@ git clone https://github.com/venturus-donizete/android_vendor_venturus_minimal_a
 # Cade o gradle?
 Se voce ja programou para Android, sabe, ou deveria saber, que para que um APK seja gerado e feito uso do [gradle](https://gradle.org/).  
 Mas nao quer dizer que um APK nao possa ser gerado sem ele.  
-Em resumo, para que um APK seja compilado, assim como quaquer artefato de qualquer framework especifico, e necessario algum tipo de SDK, compilador, ou qualquer coisa  
-que produza um binario que faca sentido quando carregado pela plataforma.  
+Em resumo, para que um APK seja compilado, assim como quaquer artefato de qualquer framework especifico, e necessario algum tipo de SDK, compilador, ou qualquer coisa que produza um binario que faca sentido quando carregado pela plataforma.  
 Para o Android nao e diferente.  
 
 ## Um APK e como um JAR. (~~e as motos como os jetskis~~)  
@@ -30,19 +29,27 @@ Sua unica diferenca e que ele possui arquivos, como fotos, XML, etc.
 De maneira breve, para gerar um APK e necessario compilar suas classes .java ou .kt que vao gerar arquivos .class (bytecode). Esses devem ser transformados para arquivos .dex, para rodar na maquina virtual do Android (ART).  
 A palavra *dex* significa algo como *dalvik executable*. Dalvik era a antiga VM do Android.  
 A ART abre esse arquivo *.dex* em tempo de instalacao e faz o cache deles para *.odex*, que otimiza as intrucoes da VM para o device em especifico, tornando o tempo de instalacao demorado, mas o de execucao rapido.  
-Os outros arquivos, conhecidos como recursos, devem ser compilados de alguma maneira e serem  
-encapsulados dentro desse APK.  
+Os outros arquivos, conhecidos como recursos, devem ser compilados de alguma maneira e serem encapsulados dentro desse APK.  
 Para isso e usado uma ferramenta chamada [aapt2](https://developer.android.com/studio/command-line/aapt2).
 
 # Android.bp
 No build system do Android ([soong](https://android.googlesource.com/platform/build/soong/+/refs/heads/master/README.md))
-os arquivos .bp descrevem como um artefato deve ser construido e onde deve ser instalado.  
+os arquivos de *blueprint*, que tem a extensao **.bp** descrevem como um artefato deve ser construido e onde deve ser instalado.  
 Ele e auto explicativo.  
-Ele tem um nome que deve ser unico, algumas configuracoes mais genericas do que compilar,  
-de qual assinatura usar e se ele vai ter acesso as *platform_apis*, que sao escondidas do SDK  
-padrao e nao podem ser capturadas nem via reflection:
+ - Cada modulo descrito dentro de um arquivo *.bp* deve ter um nome unico.
+ - Algumas configuracoes mais genericas do que compilar
+ - Qual assinatura usar 
+ - Se ele vai ter acesso as *platform_apis*, que sao escondidas do SDK padrao e nao podem ser capturadas nem via reflection.
 
 > Ler: [Non-SDK interfaces](https://developer.android.com/guide/app-compatibility/restrictions-non-sdk-interfaces)  
+
+Dentro de um arquivo de *blueprint* podem ter varios modulos, e cada modulo pode ser de um tipo diferente:  
+- modulos que descrevem artefatos nativos
+- que descrevem APK's
+- que descrevem JAR's
+
+> Vai ler a documentacao:  
+[soong_build.html](https://ci.android.com/builds/latest/branches/aosp-build-tools/targets/linux/view/soong_build.html)
 
 # Compilando  
 Para compilar qualquer coisa dentro do framework, voce so precisa conhecer 1 comando:  
@@ -81,9 +88,9 @@ O meu modulo se encontra assim:
 Depois disso voce conseguira compilar seu APK corretamente.
 
 # Nao bastando (como nada nessa vida basta)
-Descrever um bp nao faz magicamente que seu app seja instalado no seu produto de desejo.  
+Descrever um *blueprint* nao faz magicamente que seu aplicativo seja instalado no seu produto de desejo.  
 Afinal existem varios produtos. Varias variantes.  
-Por tanto, atraves do nome do .bp podemos dizer **onde** queremos que ele seja instalado.  
+Por tanto, atraves do nome do modulo descrito dentro do *blueprint* podemos dizer **onde** queremos que ele seja instalado.  
 No meu caso, estou usando o **Android 11**, na branch **android-11.0.0_r39**.  
 Isso pode ser visto abaixo (arquivo encontrado apos voce realizar a inicializacao do **repo**):
 
