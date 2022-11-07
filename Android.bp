@@ -3,6 +3,7 @@ android_app {
     srcs: ["**/*.kt"],
     platform_apis: true,
     certificate: "platform",
+    privileged: true,
     optimize: {
         enabled: false,
     },

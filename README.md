@@ -27,14 +27,48 @@ Para isso e usado uma ferramenta chamada [aapt2](https://developer.android.com/s
 
 # Android.bp
 No build system do Android ([soong](https://android.googlesource.com/platform/build/soong/+/refs/heads/master/README.md))
-os arquivos .bp descrevem  
-como um artefato deve ser construido e onde deve ser instalado.  
-Ele e auto explicativo.
+os arquivos .bp descrevem como um artefato deve ser construido e onde deve ser instalado.  
+Ele e auto explicativo.  
 Ele tem um nome que deve ser unico, algumas configuracoes mais genericas do que compilar,  
 de qual assinatura usar e se ele vai ter acesso as *platform_apis*, que sao escondidas do SDK  
 padrao e nao podem ser capturadas nem via reflection:
 
 > Ler: [Non-SDK interfaces](https://developer.android.com/guide/app-compatibility/restrictions-non-sdk-interfaces)  
+
+# Compilando  
+Para compilar qualquer coisa dentro do framework, voce so precisa conhecer 1 comando:  
+**mm module_name**  
+E toda magica acontece.  
+Como nosso modulo se chama "MinimalApp", basta digitar, depois de subir o ambiente do framework:
+**mm MinimalApp**  
+E provavel que voce obtenha algum erro relacionado ao arquivo **AndroidManifest.xml**.  
+Nos conseguimos criar um APK sem nenhum *bytecode* dentro dele. Mas o manifest e sagrado.  
+Para isso devemos criar um arquivo de manifest dentro do nosso modulo.
+
+Algo como:
+
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.venturus.minimal.app">
+
+    <application
+        android:name="MinimalApp"
+        android:label="MinimalApp"></application>
+</manifest>
+```
+
+O meu modulo se encontra assim:  
+```
+.
+├── Android.bp
+├── AndroidManifest.xml
+├── baguncinha.jpg
+└── README.md
+```
+
+~~seja sensato, voce nao precisa da imagem do baguncinha~~
+
+Depois disso voce conseguira compilar seu APK corretamente.
 
 # Nao bastando (como nada nessa vida basta)
 Descrever um bp nao faz magicamente que seu app seja instalado no seu produto de desejo.  
@@ -54,7 +88,8 @@ Isso pode ser visto abaixo (arquivo encontrado apos voce realizar a inicializaca
 
 Como descrito acima, e necessario dizer **onde**.  
 
-No meu caso, usando a **branch** descrita acima, temos os seguintes produtos (e alguns mais irrelevantes):  
+No meu caso, usando a **branch** descrita acima, temos os seguintes produtos:  
+~~eu omiti o resto depois do 30~~  
 
 ```
 Lunch menu... pick a combo:
@@ -96,3 +131,13 @@ sem a necessidade de uma traducao, diferente da arquitetura arm ou arm64, que pr
 Nao sou um expert. Seja voce. Pesquise.
 
 > Ler: [KVM](https://www.linux-kvm.org/page/Main_Page)  
+
+Esse produto vem de alguma configuracao descrita na pasta:  
+**/device**  
+ou  
+**/build/target/product**  
+
+O framework Android nao e conhecido por ser bem documentado.  
+Uma grande baguncinha.  
+<img src="baguncinha.jpg" width="200">  
+Voce so aceita. Entao explore.
