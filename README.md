@@ -332,6 +332,6 @@ ou
 codePath=/system_ext/priv-app/MinimalApp
 ```
 
-<div style="display: flex; justify-content: center">
+<div style="display: flex; justify-content: center;">
     <img src="thatsall.gif" alt="![Thats all folks!](thatsall.gif)">
 </div>
