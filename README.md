@@ -14,7 +14,7 @@ Nada disso importa muito.
 Eu optei por nomear o repositorio de acordo com a localizacao em que eu espero que ele seja clonado: **vendor/venturus/MinimalApp**  
 Para tal, voce pode fazer algo como:
 ```
-git clone https://github.com/venturus-donizete/android_vendor_venturus_minimal_app.git vendor/venturus/MinimalApp
+git clone https://github.com/venturus-donizete/android_vendor_venturus_MinimalApp.git vendor/venturus/MinimalApp
 ```
 
 ## Ou ...
