@@ -12,9 +12,9 @@ framework especifico, e necessario algum tipo de SDK, compilador, ou qualquer co
 que produza um binario que faca sentido quando carregado pela plataforma.  
 Para o Android nao e diferente.  
 
-## Um APK e como um JAR. (~~e as motos como os jetskys~~)  
+## Um APK e como um JAR. (~~e as motos como os jetskis~~)  
 Sua unica diferenca e que ele possui arquivos, como fotos, XML etc.  
-De maneira breve, para compilar um APK e necessario compilar suas classes .java ou .kt  
+De maneira breve, para gerar um APK e necessario compilar suas classes .java ou .kt  
 que vao gerar arquivos .class (bytecode). Esses devem ser transformados para arquivos .dex, para  
 rodar na maquina virtual do Android (ART).  
 A palavra *dex* significa algo como *dalvik executable*. Dalvik era a antiga VM do Android.  
@@ -26,12 +26,12 @@ encapsulados dentro desse APK.
 Para isso e usado uma ferramenta chamada [aapt2](https://developer.android.com/studio/command-line/aapt2).
 
 # Android.bp
-No build system do Android os arquivos .bp descrevem  
-como um artefato deve ser construido e onde deve ser instalado.
-
-Ele e auto explicativo. Ele tem um nome que deve ser unico,   
-algumas configuracoes mais genericas do que compilar, de qual assinatura usar  
-e se ele vai ter acesso as *platform_apis*, que sao escondidas do SDK  
+No build system do Android ([soong](https://android.googlesource.com/platform/build/soong/+/refs/heads/master/README.md))
+os arquivos .bp descrevem  
+como um artefato deve ser construido e onde deve ser instalado.  
+Ele e auto explicativo.
+Ele tem um nome que deve ser unico, algumas configuracoes mais genericas do que compilar,  
+de qual assinatura usar e se ele vai ter acesso as *platform_apis*, que sao escondidas do SDK  
 padrao e nao podem ser capturadas nem via reflection:
 
 > Ler: [Non-SDK interfaces](https://developer.android.com/guide/app-compatibility/restrictions-non-sdk-interfaces)  
@@ -50,7 +50,7 @@ Isso pode ser visto abaixo (arquivo encontrado apos voce realizar a inicializaca
 ```
 
 ## Produtos, produtos e produtos  
-~~a intrinseca necessidade de criar solucoes para os problemas que criamos~~
+~~e intrinseca necessidade de criar solucoes para os problemas que criamos~~
 
 Como descrito acima, e necessario dizer **onde**.  
 
